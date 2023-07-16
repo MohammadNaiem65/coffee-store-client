@@ -1,4 +1,3 @@
-import React from 'react';
 import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
@@ -50,7 +49,7 @@ const AddCoffee = () => {
 				}
 			});
 
-		// form.reset();
+		form.reset();
 	};
 	return (
 		<div className='w-[calc(100vw-7rem)] bg-[#F4F3F0] mx-auto mt-10 px-16 py-10 rounded'>

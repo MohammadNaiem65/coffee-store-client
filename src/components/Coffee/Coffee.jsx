@@ -53,7 +53,11 @@ const Coffee = ({ coffee }) => {
 			</div>
 			<div className='flex flex-col gap-2'>
 				<Link className='btn bg-green-400'>More</Link>
-				<Link className='btn bg-blue-400'>Edit</Link>
+				<Link
+					to={`http://localhost:5173/updateCoffee/${_id}`}
+					className='btn bg-blue-400'>
+					Edit
+				</Link>
 				<button className='btn bg-red-500' onClick={handleDelete}>
 					X
 				</button>
