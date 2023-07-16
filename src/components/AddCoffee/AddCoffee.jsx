@@ -1,12 +1,63 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
+	const handleAddCoffee = (e) => {
+		e.preventDefault();
+		const form = e.target;
+
+		// field values
+		const name = form.name.value;
+		const quantity = form.quantity.value;
+		const supplier = form.supplier.value;
+		const taste = form.taste.value;
+		const category = form.category.value;
+		const details = form.details.value;
+		const photo = form.photo.value;
+
+		const newCoffee = {
+			name,
+			quantity,
+			supplier,
+			taste,
+			category,
+			details,
+			photo,
+		};
+		fetch('http://localhost:5000/coffee', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify(newCoffee),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.insertedId) {
+					Swal.fire({
+						title: 'Success!',
+						text: 'Added the coffee',
+						icon: 'success',
+						confirmButtonText: 'Okay',
+					});
+				} else {
+					Swal.fire({
+						title: 'Error!',
+						text: 'Something went wrong. Try again!',
+						icon: 'error',
+						confirmButtonText: 'Okay',
+					});
+				}
+			});
+
+		// form.reset();
+	};
 	return (
 		<div className='w-[calc(100vw-7rem)] bg-[#F4F3F0] mx-auto mt-10 px-16 py-10 rounded'>
 			<h1 className='text-center text-3xl font-rancho font-bold'>
 				Add New Coffee
 			</h1>
-			<form className='font-raleway mt-4'>
+			<form className='font-raleway mt-4' onSubmit={handleAddCoffee}>
 				{/* Form control */}
 				<div className='flex gap-x-5 mb-6'>
 					<div className='w-full'>
@@ -17,10 +68,11 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-name'
-							name='coffee-name'
+							name='name'
 							type='text'
 							placeholder='Enter coffee name'
 							className='input input-bordered input-info w-full border-none rounded'
+							required
 						/>
 					</div>
 					<div className='w-full'>
@@ -31,10 +83,11 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-quantity'
-							name='coffee-quantity'
+							name='quantity'
 							type='text'
 							placeholder='Enter coffee quantity'
 							className='input input-bordered input-info w-full border-none rounded'
+							required
 						/>
 					</div>
 				</div>
@@ -48,7 +101,7 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-supplier'
-							name='coffee-supplier'
+							name='supplier'
 							type='text'
 							placeholder='Enter coffee supplier'
 							className='input input-bordered input-info w-full border-none rounded'
@@ -62,7 +115,7 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-taste'
-							name='coffee-taste'
+							name='taste'
 							type='text'
 							placeholder='Enter coffee taste'
 							className='input input-bordered input-info w-full border-none rounded'
@@ -79,7 +132,7 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-category'
-							name='coffee-category'
+							name='category'
 							type='text'
 							placeholder='Enter coffee category'
 							className='input input-bordered input-info w-full border-none rounded'
@@ -93,7 +146,7 @@ const AddCoffee = () => {
 						</label>
 						<input
 							id='coffee-details'
-							name='coffee-details'
+							name='details'
 							type='text'
 							placeholder='Enter coffee details'
 							className='input input-bordered input-info w-full border-none rounded'
@@ -102,20 +155,18 @@ const AddCoffee = () => {
 				</div>
 				{/* Form control */}
 				<div>
-					<div>
-						<label
-							htmlFor='coffee-photo'
-							className='block text-lg font-semibold mb-1'>
-							Photo
-						</label>
-						<input
-							id='coffee-photo'
-							name='coffee-photo'
-							type='text'
-							placeholder='Enter photo URL'
-							className='input input-bordered input-info w-full border-none rounded'
-						/>
-					</div>
+					<label
+						htmlFor='coffee-photo'
+						className='block text-lg font-semibold mb-1'>
+						Photo
+					</label>
+					<input
+						id='coffee-photo'
+						name='photo'
+						type='text'
+						placeholder='Enter photo URL'
+						className='input input-bordered input-info w-full border-none rounded'
+					/>
 				</div>
 				{/* Submit button */}
 				<button
