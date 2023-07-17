@@ -6,7 +6,7 @@ const Footer = () => {
 		<footer className='footer p-10 bg-base-200 text-base-content'>
 			<div>
 				<Link to='/'>
-					<img src={logo} alt='Car Doctor logo' />
+					<img src={logo} className='h-20' alt='Car Doctor logo' />
 				</Link>
 				<p>
 					Car Doctor Ltd.
